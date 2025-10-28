@@ -149,6 +149,43 @@ button:hover {
 /* ======================
    RESPONSIVIDADE
 ======================= */
+/* ======== TABELA ======== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 15px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #2a3f54;
+  color: #fff;
+}
+
+/* ======== SCROLL EM TELAS PEQUENAS ======== */
+.tabela-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Opcional: melhorar visualização no mobile */
+@media (max-width: 600px) {
+  table {
+    min-width: 700px; /* força rolagem horizontal */
+    font-size: 13px;
+  }
+  th, td {
+    padding: 6px;
+  }
+}
+
 @media (max-width: 1024px) {
     .grid {
         grid-template-columns: 1fr 1fr;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão do Dia Revenda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+    <h1>Negócie Já</h1>
+    <form id="negocieForm">
+    <label>Código do Cliente:<input type="text" id="codigo" required placeholder="C0000000"></label>
+    <label>Razão Social:<input type="text" id="razao" readonly></label>
+      <label>CNPJ:<input type="text" id="cnpj" readonly></label>
+      <label>Consultor:<input type="text" id="consultor" readonly></label>
+    <label>Celular:<input type="text" id="celular" required></label>
+    <label>Pessoa para Contato:<input type="text" id="contato" required></label>
+    <!-- Checkbox 1 -->
+<div style="margin-top: 15px;">
+  <label style="font-weight: 600;">CLIENTE ESTÁ CIENTE DO DÉBITO?</label><br>
+  <label><input type="checkbox" id="cienteSim" name="cienteDebito" value="Sim"> SIM</label>
+  &nbsp;&nbsp;
+  <label><input type="checkbox" id="cienteNao" name="cienteDebito" value="Não"> NÃO</label>
+</div>
+
+<!-- Checkbox 2 -->
+<div style="margin-top: 10px;">
+  <label style="font-weight: 600;">VOCÊ DEIXOU ALINHADO COM O CLIENTE QUE FAREMOS CONTATO?</label><br>
+  <label><input type="checkbox" id="contatoSim" name="contatoCliente" value="Sim"> SIM</label>
+  &nbsp;&nbsp;
+  <label><input type="checkbox" id="contatoNao" name="contatoCliente" value="Não"> NÃO</label>
+</div>
+      <button type="submit">Resumo</button>
+    </form>
+    <div id="relatorio"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modalConfirmacao" class="modal">
+    <div class="modal-content">
+      <h2>Revisar Informações</h2>
+      <pre id="modalTexto" style="white-space:pre-wrap;"></pre>
+      <div class="modal-buttons">
+        <button id="btnConfirmar">Enviar para Cobrança</button>
+        <button id="btnFechar">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+    <script src="script.js"></script>
+</body>
+
+
+</html>
+

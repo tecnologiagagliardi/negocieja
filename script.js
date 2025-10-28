@@ -84,6 +84,28 @@ celularInput.addEventListener("input", (e) => {
   e.target.value = valor.trim();
 });
 
+function calcularDiasVencidos(vencimentoStr) {
+  if (!vencimentoStr) return "-";
+  
+  const partes = vencimentoStr.split("/");
+  if (partes.length !== 3) return "-";
+  
+  const [dia, mes, ano] = partes.map(Number);
+  const vencimento = new Date(ano, mes - 1, dia);
+  const hoje = new Date();
+  
+  vencimento.setHours(0, 0, 0, 0);
+  hoje.setHours(0, 0, 0, 0);
+  
+  const diffMs = hoje - vencimento;
+  const diffDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (isNaN(diffDias)) return "-";
+
+  return diffDias > 0
+    ? `${diffDias} dia(s) vencido`
+    : `${Math.abs(diffDias)} dia(s) para vencer`;
+}
 
 // Montar tabela com títulos
 function mostrarTabela(registros) {
@@ -99,6 +121,7 @@ function mostrarTabela(registros) {
             <th>Parcela</th>
             <th>Emissão</th>
             <th>Vencimento</th>
+            <th>Dias Vencidos</th>
             <th>Valor Título (R$)</th>
             <th>Valor Pago (R$)</th>
             <th>Saldo (R$)</th>
@@ -116,6 +139,7 @@ function mostrarTabela(registros) {
         <td>${r.parcela}</td>
         <td>${r.emissao}</td>
         <td>${r.vencimento}</td>
+        <td>${calcularDiasVencidos(r.vencimento)}</td>
         <td>${r.valorTitulo}</td>
 <td>${r.valorPago}</td>
 <td>${r.saldo}</td>
@@ -161,16 +185,19 @@ const contatoClienteTexto = contatoCliente ? contatoCliente.value : "Não inform
 let texto = `📌 *NEGÓCIE JÁ*\n\n👤 *Pessoa para contato:* ${contato}\n📱 *Celular:* ${celular}\n\n📊 *Resumo dos títulos:*\n\n`;
 
 registrosCliente.forEach((r, i) => {
+  const diasVencidos = calcularDiasVencidos(r.vencimento);
+
   texto += `🧾 *Título ${i + 1}*\n`;
   texto += `• Razão Social: ${r.razao}\n`;
   texto += `• Consultor: ${r.consultor}\n`;
   texto += `• NF: ${r.nf} | Parcela: ${r.parcela}\n`;
   texto += `• Emissão: ${r.emissao} | Vencimento: ${r.vencimento}\n`;
+  texto += `• *${diasVencidos.toUpperCase()}*\n`;
   texto += `• Valor Título: R$ ${r.valorTitulo}\n`;
-texto += `• Valor Pago: R$ ${r.valorPago}\n`;
-texto += `• Saldo: R$ ${r.saldo}\n\n`;
-
+  texto += `• Valor Pago: R$ ${r.valorPago}\n`;
+  texto += `• Saldo: R$ ${r.saldo}\n\n`;
 });
+
 
 texto += `💰 *Total em aberto:* R$ ${totalAberto.toFixed(2)}\n`;
 texto += `📋 *Cliente está ciente do débito?* ${cienteTexto}\n`;

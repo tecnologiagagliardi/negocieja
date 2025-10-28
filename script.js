@@ -12,7 +12,6 @@ async function carregarArquivo() {
   dadosClientes = linhas.slice(1).map(linha => {
     const partes = linha.split(";").map(p => p.trim());
     return {
-      cnpj: partes[0],
       cliente: partes[1],
       razao: partes[2],
       consultor: partes[3],
@@ -20,9 +19,10 @@ async function carregarArquivo() {
       vencimento: partes[5],
       nf: partes[6],
       parcela: partes[7],
-      valorTitulo: parseFloat(partes[8].replace(",", ".")) || 0,
-      valorPago: parseFloat(partes[9].replace(",", ".")) || 0,
-      saldo: parseFloat(partes[10].replace(",", ".")) || 0,
+      valorTitulo: partes[8], // mantém como string
+valorPago: partes[9],
+saldo: partes[10],
+
     };
   });
 }
@@ -36,13 +36,11 @@ document.getElementById("codigo").addEventListener("change", function() {
   if (registrosCliente.length > 0) {
     const cliente = registrosCliente[0];
     document.getElementById("razao").value = cliente.razao;
-    document.getElementById("cnpj").value = cliente.cnpj;
     document.getElementById("consultor").value = cliente.consultor;
     mostrarTabela(registrosCliente);
   } else {
     // Limpa os inputs e a tabela
     document.getElementById("razao").value = "";
-    document.getElementById("cnpj").value = "";
     document.getElementById("consultor").value = "";
     relatorioDiv.innerHTML = "";
   }
@@ -96,7 +94,6 @@ function mostrarTabela(registros) {
         <thead>
           <tr>
             <th>Razão Social</th>
-            <th>CNPJ</th>
             <th>Consultor</th>
             <th>N° NF</th>
             <th>Parcela</th>
@@ -114,15 +111,15 @@ function mostrarTabela(registros) {
     html += `
       <tr>
         <td>${r.razao}</td>
-        <td>${r.cnpj}</td>
         <td>${r.consultor}</td>
         <td>${r.nf}</td>
         <td>${r.parcela}</td>
         <td>${r.emissao}</td>
         <td>${r.vencimento}</td>
-        <td>${r.valorTitulo.toFixed(2)}</td>
-        <td>${r.valorPago.toFixed(2)}</td>
-        <td>${r.saldo.toFixed(2)}</td>
+        <td>${r.valorTitulo}</td>
+<td>${r.valorPago}</td>
+<td>${r.saldo}</td>
+
       </tr>`;
   });
 
@@ -148,7 +145,11 @@ form.addEventListener("submit", e => {
   const contato = document.getElementById("contato").value;
   const celular = document.getElementById("celular").value;
 
- const totalAberto = registrosCliente.reduce((acc, r) => acc + r.saldo, 0);
+const totalAberto = registrosCliente.reduce((acc, r) => {
+  const valor = parseFloat(r.saldo.replace(/\./g, "").replace(",", ".")) || 0;
+  return acc + valor;
+}, 0);
+
 
 // Captura as respostas dos checkboxes
 const ciente = document.querySelector('input[name="cienteDebito"]:checked');
@@ -162,13 +163,13 @@ let texto = `📌 *NEGÓCIE JÁ*\n\n👤 *Pessoa para contato:* ${contato}\n📱
 registrosCliente.forEach((r, i) => {
   texto += `🧾 *Título ${i + 1}*\n`;
   texto += `• Razão Social: ${r.razao}\n`;
-  texto += `• CNPJ: ${r.cnpj}\n`;
   texto += `• Consultor: ${r.consultor}\n`;
   texto += `• NF: ${r.nf} | Parcela: ${r.parcela}\n`;
   texto += `• Emissão: ${r.emissao} | Vencimento: ${r.vencimento}\n`;
-  texto += `• Valor Título: R$ ${r.valorTitulo.toFixed(2)}\n`;
-  texto += `• Valor Pago: R$ ${r.valorPago.toFixed(2)}\n`;
-  texto += `• Saldo: R$ ${r.saldo.toFixed(2)}\n\n`;
+  texto += `• Valor Título: R$ ${r.valorTitulo}\n`;
+texto += `• Valor Pago: R$ ${r.valorPago}\n`;
+texto += `• Saldo: R$ ${r.saldo}\n\n`;
+
 });
 
 texto += `💰 *Total em aberto:* R$ ${totalAberto.toFixed(2)}\n`;

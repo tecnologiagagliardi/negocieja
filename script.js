@@ -91,22 +91,23 @@ celularInput.addEventListener("input", (e) => {
 function mostrarTabela(registros) {
   let html = `
     <h2>Títulos do Cliente</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Razão Social</th>
-          <th>CNPJ</th>
-          <th>Consultor</th>
-          <th>N° NF</th>
-          <th>Parcela</th>
-          <th>Emissão</th>
-          <th>Vencimento</th>
-          <th>Valor Título (R$)</th>
-          <th>Valor Pago (R$)</th>
-          <th>Saldo (R$)</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="tabela-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Razão Social</th>
+            <th>CNPJ</th>
+            <th>Consultor</th>
+            <th>N° NF</th>
+            <th>Parcela</th>
+            <th>Emissão</th>
+            <th>Vencimento</th>
+            <th>Valor Título (R$)</th>
+            <th>Valor Pago (R$)</th>
+            <th>Saldo (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
   `;
 
   registros.forEach(r => {
@@ -125,9 +126,15 @@ function mostrarTabela(registros) {
       </tr>`;
   });
 
-  html += `</tbody></table>`;
-  relatorioDiv.innerHTML = html;
+  html += `
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  document.getElementById("relatorio").innerHTML = html;
 }
+
 
 // Resumo e envio via WhatsApp
 form.addEventListener("submit", e => {

@@ -211,7 +211,7 @@ texto += `📞 *Contato alinhado com o cliente?* ${contatoClienteTexto}\n\n`;
   modal.style.display = "flex";
 
   document.getElementById("btnConfirmar").onclick = () => {
-    const numeroDestino = "5585991745188";
+    const numeroDestino = "5585991745185";
     const linkWhats = `https://wa.me/${numeroDestino}?text=${encodeURIComponent(texto)}`;
     window.open(linkWhats, "_blank");
     modal.style.display = "none";
@@ -220,3 +220,4 @@ texto += `📞 *Contato alinhado com o cliente?* ${contatoClienteTexto}\n\n`;
   document.getElementById("btnFechar").onclick = () => modal.style.display = "none";
   window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
 });
+

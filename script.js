@@ -182,7 +182,7 @@ const contatoCliente = document.querySelector('input[name="contatoCliente"]:chec
 const cienteTexto = ciente ? ciente.value : "Não informado";
 const contatoClienteTexto = contatoCliente ? contatoCliente.value : "Não informado";
 
-let texto = `📌 *NEGÓCIE JÁ*\n\n👤 *Pessoa para contato:* ${contato}\n📱 *Celular:* ${celular}\n\n📊 *Resumo dos títulos:*\n\n`;
+let texto = `📌 *NEGOCIE JÁ*\n\n👤 *Pessoa para contato:* ${contato}\n📱 *Celular:* ${celular}\n\n📊 *Resumo dos títulos:*\n\n`;
 
 registrosCliente.forEach((r, i) => {
   const diasVencidos = calcularDiasVencidos(r.vencimento);
@@ -220,4 +220,5 @@ texto += `📞 *Contato alinhado com o cliente?* ${contatoClienteTexto}\n\n`;
   document.getElementById("btnFechar").onclick = () => modal.style.display = "none";
   window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
 });
+
 

@@ -1,4 +1,4 @@
-body {
+    body {
     font-family: Arial, sans-serif;
     background: #f0f4f8;
     color: #333;
@@ -174,6 +174,12 @@ th {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+img {
+    display: block;
+    margin: 0 auto 20px auto; /* centraliza horizontalmente */
+    max-width: 100%;          /* não ultrapassa a largura da tela */
+    height: auto;             /* mantém proporção */
+}
 
 /* Opcional: melhorar visualização no mobile */
 @media (max-width: 600px) {
@@ -208,5 +214,10 @@ th {
     .form-group {
         display: flex;
         flex-direction: column;
+    }
+}
+@media (max-width: 480px) {
+    img {
+        max-width: 180px; /* controla o tamanho no mobile */
     }
 }

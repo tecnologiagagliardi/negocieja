@@ -6,6 +6,14 @@
     padding: 0;
 }
 
+.logo {
+    width: 220px;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    object-fit: contain;
+}
+
 .container {
     max-width: 900px;
     margin: 20px auto;
